@@ -5,7 +5,14 @@ const SearchView = (props) => {
     return (
       <>
       <div class="background">
-          <img class="backgroundImage" src={"background.jpg"}></img>
+        <div class="header">
+
+        </div>
+
+        <div class="body">
+
+        </div>
+        
       </div>
       </>
     );
