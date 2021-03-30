@@ -8,8 +8,20 @@
 
 .header {
     background-color: chocolate;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 20% 20% 20%;
 }
 
 .body {
-    background-color: crimson;
+
+}
+
+.results {
+    background-color: white;
+    border-radius: 20px;
+    width: 90%;
+    height: 550px;
+    margin: auto;
+    margin-top: 50px;
 }
