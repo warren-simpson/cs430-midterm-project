@@ -1,9 +1,15 @@
+  
 .background{
-    background-color: red;
-    min-height: 100vh;
+    width: 100%;
+    height: 695px;
+    display: grid;
+    grid-template-rows: 10% 90%;
 }
 
-.backgroundImage {
-    width: 100%;
-    min-height: 500px;
+.header {
+    background-color: chocolate;
+}
+
+.body {
+    background-color: crimson;
 }
