@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { SearchView } from "../views";
+const pool = require("../config/dbconfig");
 
 class SearchContainer extends Component {
   constructor(props) {
@@ -12,10 +13,24 @@ class SearchContainer extends Component {
   }
 
   componentDidMount() {
+    /*
     this.getResponse("Texas", "Chicago").then((res) => {
       const someData = res;
       this.setState({ trains: someData });
     });
+    */
+    let depCity = "Texas";
+    let arrivalCity = "Chicago";
+    pool.query(
+      "select * from trains WHERE departure_city = ? && arrival_city = ?",
+      [depCity, arrivalCity],
+      (err, result, field) => {
+        if (err) {
+          return console.log(err);
+        }
+        res.send(result);
+      }
+    );
   }
 
   getResponse = async (departure, arrival) => {
