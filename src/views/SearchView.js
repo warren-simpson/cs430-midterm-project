@@ -5,19 +5,20 @@ const SearchView = (props) => {
     return (
       <>
       <div class="background">
+        <img class="backgroundImage" src="train-background.svg"></img>
         <div class="header">
           <div>
-            <input></input>
+            <input placeholder="Departure"></input>
           </div>
           <div>
-            <input></input>
+            <input  placeholder="Destination"></input>
           </div>
           <div>
-            <button></button>
+            <button class="searchButton">Search</button>
           </div>
         </div>
 
-        <div class="body">
+        <div class="bodyContainer">
           <div class="results">
 
           </div>
