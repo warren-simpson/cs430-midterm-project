@@ -1,35 +1,57 @@
 import React, { Component } from "react";
 import { SearchView } from "../views";
 
-//const getTrains = require("../queries/getTrains");
-
 class SearchContainer extends Component {
-  state = {
-    renderedResponse: "",
-  };
-
-  getResponse = async (departure, arrival) => {
-    //const response = await fetch("/api/trains/", departure, "/", arrival);
-    const response = await fetch(`/api/trains/${departure}/${arrival}`);
-    const body = await response.json();
-    if (response.status !== 200) throw Error(body.message);
-
-    return body;
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      departure: "",
+      arrival: "",
+      trains: [],
+    };
+  }
 
   componentDidMount() {
     this.getResponse("Texas", "Chicago").then((res) => {
-      console.log("res: ", res);
       const someData = res;
-      this.setState({ renderedResponse: someData });
+      this.setState({ trains: someData });
+    });
+  }
+
+  getResponse = async (departure, arrival) => {
+    const response = await fetch(`/api/trains/${departure}/${arrival}`);
+    const body = await response.json();
+    if (response.status !== 200) throw Error(body.message);
+    return body;
+  };
+
+  handleInputChange = (e) => {
+    e.preventdefault();
+    this.setState({ 
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  handleSearch = (e) => {
+    e.preventdefault();
+    this.getResponse(this.state.departure, this.state.arrival).then((res) => {
+      const someData = res;
+      this.setState({ 
+        trains: someData 
+      });
     });
   }
 
   render() {
     return (
       <>
-        <p>{this.state.renderedResponse.express}</p>
-        <SearchView />
+        <SearchView 
+        handleInputChange={this.handleInputChange}
+        handleSearch={this.handleSearch}
+        departure={this.state.departure}
+        arrival={this.state.arrival}
+        trains={this.state.trains}
+        />
       </>
     );
   }
