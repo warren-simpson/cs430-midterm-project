@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { SearchView } from "../views";
-const pool = require("../config/dbconfig");
 
 class SearchContainer extends Component {
   constructor(props) {
