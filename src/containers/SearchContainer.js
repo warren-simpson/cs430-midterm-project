@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { SearchView } from "../views";
+const pool = require("../config/dbconfig");
 
 class SearchContainer extends Component {
   constructor(props) {
@@ -11,12 +12,14 @@ class SearchContainer extends Component {
     };
   }
 
+
   // componentDidMount() {
   //   this.getResponse("Ohio", "Boston").then((res) => {
   //     const someData = res;
   //     this.setState({ trains: someData });
   //   });
   // }
+
 
   getResponse = async (departure, arrival) => {
     const response = await fetch(`/api/trains/${departure}/${arrival}`);
