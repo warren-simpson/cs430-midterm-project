@@ -49,20 +49,33 @@ input {
 }
 
 .trainName {
-    font-size: 25px;
+    font-size: 32px;
     font-weight: bold;
-    padding-bottom: 12px;
+    padding-bottom: 5px;
 }
 
 .trainInfo {
     height: 50px;
     width: 100%;
     display: grid;
+    grid-template-columns: 35% 20% 35%;
 }
 
 .dep-arr {
-    font-size: 13px;
+    font-size: 17px;
     font-weight: bold;
+}
+
+.capacity {
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.date {
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 20px;
 }
 
 .searchButton {
