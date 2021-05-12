@@ -40,7 +40,7 @@ const SearchView = (props) => {
                     {train.departure_city} - {train.arrival_city}
                   </p>
                   <p class="capacity">{train.capacity} Seats</p>
-                  <p class="date">{train.trip_date.substring(0, 10)}</p>
+                  <p class="date">{train.trip_date}</p>
                 </div>
               </div>
             ))}

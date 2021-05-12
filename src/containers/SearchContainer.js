@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { SearchView } from "../views";
-import { auth, db } from "../firebase/firebase";
+import { db } from "../firebase/firebase";
 
 class SearchContainer extends Component {
   constructor(props) {
@@ -12,36 +12,48 @@ class SearchContainer extends Component {
     };
   }
 
+  // REGISTERING A NEW USER
+
   // componentDidMount() {
-  //   db.collection("trains")
-  //     .get()
-  //     .then((querySnapshot) => {
-  //       const data = querySnapshot.docs.map((doc) => doc.data());
-  //       console.log(data);
-  //       this.setState({ trains: data });
+  //   const data = {
+  //     uid: new Date().getTime(),
+  //     creditCard: this.state.creditCard,
+  //     cvc: this.state.cvc,
+  //   };
+  //   db.collection("users")
+  //     .doc(data.uid.toString())
+  //     .set(data)
+  //     .then(() => {
+  //       console.log("A new user has been added", "Success");
+  //     })
+  //     .catch((error) => {
+  //       console.log(error.message, "Create user failed");
+  //       //this.setState({ isSubmitting: false });
   //     });
   // }
 
+  // SEARCHING FOR SPECIFIC TRAIN
   getResponse = async (departure, arrival) => {
-    // const response = await fetch(`/api/trains/${departure}/${arrival}`);
-    // const body = await response.json();
-    // this.setState({ trains: body });
-    // console.log("my beatiful trains from the databse: ", this.state.trains);
-    // if (response.status !== 200) throw Error(body.message);
-    // return body;
+    const snapshot = await db
+      .collection("trains")
+      .where(
+        "departure_city",
+        "==",
+        departure,
+        "AND",
+        "arrival_city",
+        "==",
+        arrival
+      )
+      .get();
 
-    var query = db.collection("trains");
-    let data;
-    query = query.where("departure_city", "==", departure);
-    query = query.where("arrival_city", "==", arrival);
-
-    query.get().then((querySnapshot) => {
-      data = querySnapshot.docs.map((doc) => doc.data());
-      console.log(data);
-      this.setState({ trains: data });
-      console.log("trains from state: ", this.state.trains);
+    if (snapshot.empty) {
+      console.log("No matching documents.");
+      return;
+    }
+    snapshot.forEach((doc) => {
+      console.log(doc.id, "=>", doc.data());
     });
-    return data;
   };
 
   handleInputChange = (e) => {
@@ -53,12 +65,7 @@ class SearchContainer extends Component {
 
   handleSearch = (e) => {
     //e.preventdefault();
-    this.getResponse(this.state.departure, this.state.arrival).then((res) => {
-      const someData = res;
-      this.setState({
-        trains: someData,
-      });
-    });
+    this.getResponse(this.state.departure, this.state.arrival);
   };
 
   render() {
