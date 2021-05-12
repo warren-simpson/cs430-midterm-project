@@ -1,7 +1,6 @@
 import React from "react";
 import "./styles/SearchView.css";
 
-
 const SearchView = (props) => {
   return (
     <>
@@ -35,13 +34,15 @@ const SearchView = (props) => {
           <div class="results">
             {props.trains.map((train) => (
               <div class="resultCell">
-              <p class="trainName">Train {train.train_id}</p>
-              <div class="trainInfo">
-                <p class="dep-arr">{train.departure_city} - {train.arrival_city}</p>
-                <p class="capacity">{train.capacity} Seats</p>
-                <p class="date">{train.trip_date.substring(0, 10)}</p>
+                <p class="trainName">Train {train.train_id}</p>
+                <div class="trainInfo">
+                  <p class="dep-arr">
+                    {train.departure_city} - {train.arrival_city}
+                  </p>
+                  <p class="capacity">{train.capacity} Seats</p>
+                  <p class="date">{train.trip_date.substring(0, 10)}</p>
+                </div>
               </div>
-            </div>
             ))}
           </div>
         </div>

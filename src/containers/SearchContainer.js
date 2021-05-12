@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { SearchView } from "../views";
+import { auth, db } from "../firebase/firebase";
 
 class SearchContainer extends Component {
   constructor(props) {
@@ -11,22 +12,36 @@ class SearchContainer extends Component {
     };
   }
 
-
   // componentDidMount() {
-  //   this.getResponse("Ohio", "Boston").then((res) => {
-  //     const someData = res;
-  //     this.setState({ trains: someData });
-  //   });
+  //   db.collection("trains")
+  //     .get()
+  //     .then((querySnapshot) => {
+  //       const data = querySnapshot.docs.map((doc) => doc.data());
+  //       console.log(data);
+  //       this.setState({ trains: data });
+  //     });
   // }
 
-
   getResponse = async (departure, arrival) => {
-    const response = await fetch(`/api/trains/${departure}/${arrival}`);
-    const body = await response.json();
-    this.setState({ trains: body });
-    console.log("my beatiful trains from the databse: ", this.state.trains);
-    if (response.status !== 200) throw Error(body.message);
-    return body;
+    // const response = await fetch(`/api/trains/${departure}/${arrival}`);
+    // const body = await response.json();
+    // this.setState({ trains: body });
+    // console.log("my beatiful trains from the databse: ", this.state.trains);
+    // if (response.status !== 200) throw Error(body.message);
+    // return body;
+
+    var query = db.collection("trains");
+    let data;
+    query = query.where("departure_city", "==", departure);
+    query = query.where("arrival_city", "==", arrival);
+
+    query.get().then((querySnapshot) => {
+      data = querySnapshot.docs.map((doc) => doc.data());
+      console.log(data);
+      this.setState({ trains: data });
+      console.log("trains from state: ", this.state.trains);
+    });
+    return data;
   };
 
   handleInputChange = (e) => {
