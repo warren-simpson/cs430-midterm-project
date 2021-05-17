@@ -23,7 +23,9 @@ class SearchContainer extends Component {
     });
   }
 
-  getResponse = (departure, arrival) => {
+  buyTicket = () => {};
+
+  getSearchedTrains = (departure, arrival) => {
     let searched = this.state.trains.filter(
       (train) =>
         train.departure_city === departure && train.arrival_city === arrival
@@ -49,7 +51,7 @@ class SearchContainer extends Component {
 
   handleSearch = (e) => {
     //e.preventdefault();
-    this.getResponse(this.state.departure, this.state.arrival);
+    this.getSearchedTrains(this.state.departure, this.state.arrival);
     console.log(this.state.searchedTrains);
   };
 
@@ -77,8 +79,27 @@ class SearchContainer extends Component {
     }
   };
 
-  handleBuy = (e, train_id) => {
-    e.preventdefault();
+  handleBuy = (e, id) => {
+    //e.preventdefault();
+    let bought = this.state.trains.find((train) => train.id === id);
+    console.log(bought);
+    const data = {
+      departure_city: bought.departure_city,
+      arrival_city: bought.arrival_city,
+      capacity: bought.capacity,
+      trip_date: bought.trip_date,
+      id: id,
+    };
+    db.collection("purchases")
+      .doc(data.id.toString())
+      .set(data)
+      .then(() => {
+        console.log("A new purchase is made", "Success");
+      })
+      .catch((error) => {
+        console.log(error.message, "purchase failed");
+        //this.setState({ isSubmitting: false });
+      });
   };
 
   render() {

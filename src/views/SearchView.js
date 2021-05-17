@@ -74,24 +74,24 @@ const SearchView = (props) => {
 
         <div class="bodyContainer">
           <div class="results2">
-            {props.state.searchedTrains.map(
-              (train) => (
-                console.log("idsss", train.id),
-                (
-                  <div class="resultCell">
-                    <p class="trainName">Train {train.id}</p>
-                    <div class="trainInfo">
-                      <p class="dep-arr">
-                        {train.departure_city} - {train.arrival_city}
-                      </p>
-                      <p class="capacity">{train.capacity} Seats</p>
-                      <p class="date">{train.trip_date.substring(0, 10)}</p>
-                      <button class="buy">Buy</button>
-                    </div>
-                  </div>
-                )
-              )
-            )}
+            {props.state.searchedTrains.map((train) => (
+              <div class="resultCell">
+                <p class="trainName">Train {train.id}</p>
+                <div class="trainInfo">
+                  <p class="dep-arr">
+                    {train.departure_city} - {train.arrival_city}
+                  </p>
+                  <p class="capacity">{train.capacity} Seats</p>
+                  <p class="date">{train.trip_date.substring(0, 10)}</p>
+                  <button
+                    class="buy"
+                    onClick={(e) => props.handleBuy(e, train.id)}
+                  >
+                    Buy
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
