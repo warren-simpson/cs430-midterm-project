@@ -4,13 +4,26 @@
     height: 692px;
 }
 
-.container1 {
+.container2 {
     background-color: white;
     border-radius: 10px;
     width: 55%;
-    height: 450px;
+    height: 540px;
     margin: auto;
     margin-top: 100px;
     box-shadow: 0 0 20px gray;
     overflow: hidden;
+}
+
+.signupButton {
+    background-color: #2596be;
+    border: none;
+    height: 30px;
+    border-radius: 15px;
+    width: 65px;
+    color: white;
+    cursor: pointer;
+    margin-left: 25px;
+    margin-top: 15px;
+    outline: none;
 }
