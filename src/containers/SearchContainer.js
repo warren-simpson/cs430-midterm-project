@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { SearchView } from "../views";
+import { setUser, getUser } from "../containers/user"
 
 class SearchContainer extends Component {
   constructor(props) {
@@ -7,24 +8,15 @@ class SearchContainer extends Component {
     this.state = {
       departure: "",
       arrival: "",
-      trains: [],
+      trains: [{"train_id": "1", "departure_city": "New York", "arrival_city": "Boston", "capacity": "22", "trip_date": "2532-32-44"}],
+      profile_tab_visibility: "hidden",
     };
   }
-
-
-  // componentDidMount() {
-  //   this.getResponse("Ohio", "Boston").then((res) => {
-  //     const someData = res;
-  //     this.setState({ trains: someData });
-  //   });
-  // }
-
 
   getResponse = async (departure, arrival) => {
     const response = await fetch(`/api/trains/${departure}/${arrival}`);
     const body = await response.json();
     this.setState({ trains: body });
-    console.log("my beatiful trains from the databse: ", this.state.trains);
     if (response.status !== 200) throw Error(body.message);
     return body;
   };
@@ -46,15 +38,46 @@ class SearchContainer extends Component {
     });
   };
 
+  handleButton1 = (e) => {
+    //e.preventdefault();
+    const user = getUser();
+
+    if(user === "") {
+      window.open("/signup", "_self");
+    }
+    else {
+      window.open("/purchases", "_self");
+    }
+  };
+
+  handleButton2 = (e) => {
+    //e.preventdefault();
+    
+  };
+
+  handleBuy = (e, train_id) => {
+    e.preventdefault();
+    const user = getUser();
+
+    if(user === "") {
+      window.open("/login", "_self");
+    }
+    else {
+      setUser("");
+      window.open("/", "_self");
+    }
+  };
+
   render() {
     return (
       <>
         <SearchView
           handleInputChange={this.handleInputChange}
+          handleButton1={this.handleButton1}
+          handleButton2={this.handleButton2}
+          handleBuy={this.handleBuy}
           handleSearch={this.handleSearch}
-          departure={this.state.departure}
-          arrival={this.state.arrival}
-          trains={this.state.trains}
+          state={this.state}
         />
       </>
     );
