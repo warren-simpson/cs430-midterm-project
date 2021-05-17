@@ -20,7 +20,7 @@ class PurchasesContainer extends Component {
     });
   };
 
-  handleCancel = (e, id) => {
+  handleCancel = (e, train_id) => {
 
   }
 

@@ -5,7 +5,7 @@ const PurchasesView = (props) => {
   return (
     <>
       <div class="background2">
-         <div class="results">
+         <div class="results1">
             {props.state.purchases.map((train) => (
               <div class="resultCell">
               <p class="trainName">Train {train.train_id}</p>

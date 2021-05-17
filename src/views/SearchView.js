@@ -65,7 +65,7 @@ const SearchView = (props) => {
         </div>
 
         <div class="bodyContainer">
-          <div class="results">
+          <div class="results2">
             {props.state.trains.map((train) => (
               <div class="resultCell">
               <p class="trainName">Train {train.train_id}</p>

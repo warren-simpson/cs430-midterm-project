@@ -10,6 +10,8 @@ class SignUpContainer extends Component {
       email: "",
       password: "",
       card_number: "",
+      exp_date: "",
+      cvc: "",
     };
   }
 

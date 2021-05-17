@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { SearchView } from "../views";
+import { setUser, getUser } from "../containers/user"
 
 class SearchContainer extends Component {
   constructor(props) {
@@ -39,17 +40,32 @@ class SearchContainer extends Component {
 
   handleButton1 = (e) => {
     //e.preventdefault();
-    window.open("/signup", "_self");
+    const user = getUser();
+
+    if(user === "") {
+      window.open("/signup", "_self");
+    }
+    else {
+      window.open("/purchases", "_self");
+    }
   };
 
   handleButton2 = (e) => {
-    e.preventdefault();
+    //e.preventdefault();
     
   };
 
-  handleBuy = (e) => {
+  handleBuy = (e, train_id) => {
     e.preventdefault();
-    
+    const user = getUser();
+
+    if(user === "") {
+      window.open("/login", "_self");
+    }
+    else {
+      setUser("");
+      window.open("/", "_self");
+    }
   };
 
   render() {
