@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { SignUpView } from "../views";
+import { setUser } from "../containers/user"
 
 class SignUpContainer extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class SignUpContainer extends Component {
   };
 
   handleSignUp = (e) => {
-
+    //setUser()
   }
 
   render() {

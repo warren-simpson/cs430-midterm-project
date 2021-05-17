@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { LoginView } from "../views";
+import { setUser } from "../containers/user"
 
 class LoginContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      email: "",
+      password: "",
     };
   }
 
@@ -17,7 +19,8 @@ class LoginContainer extends Component {
   };
 
   handleLogin = (e) => {
-
+    
+    //setUser()
   }
 
   render() {
