@@ -1,18 +1,18 @@
 import React from "react";
 import "./styles/SearchView.css";
+import { getUser } from "../containers/user";
 
 
 
 const SearchView = (props) => {
-  /*
-  var DynamiacComponent;
-  if() {
+  var button1Name = "SignUp"
+  var button2Name = "Login"
+  var user = getUser();
 
+  if(user !== "") {
+    button1Name = "Purchases"
+    button2Name = "Logout"
   }
-  else {
-
-  }
-  */
 
 
   return (
@@ -46,20 +46,20 @@ const SearchView = (props) => {
             </button>
           </div>
 
-          <div class="profile">
+          <div class="profile" onMouseEnter={e => props.handleVisibilityChange(e, "visible")} onMouseLeave={e => props.handleVisibilityChange(e, "hidden")}>
             <img src="user.png" alt=""></img>
           </div>
 
         </div>
 
-        <div class="section1">
+        <div class="section1" onMouseEnter={e => props.handleVisibilityChange(e, "visible")} onMouseLeave={e => props.handleVisibilityChange(e, "hidden")} style={{"visibility": props.state.profile_tab_visibility}}>
           <div class="section2">
             <div>
-              <button class="signup" onClick={(e) => props.handleButton1(e)}>Sign up</button>
+              <button class="signup" onClick={(e) => props.handleButton1(e)}>{button1Name}</button>
             </div>
 
             <div>
-              <button class="login" onClick={(e) => props.handleButton2(e)}>Login</button>
+              <button class="login" onClick={(e) => props.handleButton2(e)}>{button2Name}</button>
             </div>
           </div>
         </div>

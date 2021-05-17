@@ -21,6 +21,12 @@ class SearchContainer extends Component {
     return body;
   };
 
+  handleVisibilityChange = (e, visibility) => {
+    this.setState({
+      profile_tab_visibility: visibility,
+    });
+  }
+
   handleInputChange = (e) => {
     //e.preventdefault();
     this.setState({
@@ -52,11 +58,7 @@ class SearchContainer extends Component {
 
   handleButton2 = (e) => {
     //e.preventdefault();
-    
-  };
 
-  handleBuy = (e, train_id) => {
-    e.preventdefault();
     const user = getUser();
 
     if(user === "") {
@@ -68,11 +70,17 @@ class SearchContainer extends Component {
     }
   };
 
+  handleBuy = (e, train_id) => {
+    e.preventdefault();
+    
+  };
+
   render() {
     return (
       <>
         <SearchView
           handleInputChange={this.handleInputChange}
+          handleVisibilityChange={this.handleVisibilityChange}
           handleButton1={this.handleButton1}
           handleButton2={this.handleButton2}
           handleBuy={this.handleBuy}
