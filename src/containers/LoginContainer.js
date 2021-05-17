@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { LoginView } from "../views";
-import { setUser } from "../containers/user"
+import { setUser, getUser } from "../containers/user";
+import { auth } from "../firebase/firebase";
 
 class LoginContainer extends Component {
   constructor(props) {
@@ -11,6 +12,18 @@ class LoginContainer extends Component {
     };
   }
 
+  checkUser = () => {
+    auth
+      .signInWithEmailAndPassword(this.state.email, this.state.password)
+      .then((auth) => {
+        //history.push("/");
+
+        setUser(this.state.email);
+        console.log("current user is: ", getUser());
+      })
+      .catch((error) => alert(error.message));
+  };
+
   handleInputChange = (e) => {
     //e.preventdefault();
     this.setState({
@@ -19,9 +32,8 @@ class LoginContainer extends Component {
   };
 
   handleLogin = (e) => {
-    
-    //setUser()
-  }
+    this.checkUser();
+  };
 
   render() {
     return (

@@ -2,18 +2,15 @@ import React from "react";
 import "./styles/SearchView.css";
 import { getUser } from "../containers/user";
 
-
-
 const SearchView = (props) => {
-  var button1Name = "SignUp"
-  var button2Name = "Login"
+  var button1Name = "SignUp";
+  var button2Name = "Login";
   var user = getUser();
 
-  if(user !== "") {
-    button1Name = "Purchases"
-    button2Name = "Logout"
+  if (user !== "") {
+    button1Name = "Purchases";
+    button2Name = "Logout";
   }
-
 
   return (
     <>
@@ -21,7 +18,6 @@ const SearchView = (props) => {
         <img class="backgroundImage" src="train-background.svg" alt=""></img>
 
         <div class="header">
-
           <div>
             <input
               value={props.state.departure}
@@ -46,37 +42,56 @@ const SearchView = (props) => {
             </button>
           </div>
 
-          <div class="profile" onMouseEnter={e => props.handleVisibilityChange(e, "visible")} onMouseLeave={e => props.handleVisibilityChange(e, "hidden")}>
+          <div
+            class="profile"
+            onMouseEnter={(e) => props.handleVisibilityChange(e, "visible")}
+            onMouseLeave={(e) => props.handleVisibilityChange(e, "hidden")}
+          >
             <img src="user.png" alt=""></img>
           </div>
-
         </div>
 
-        <div class="section1" onMouseEnter={e => props.handleVisibilityChange(e, "visible")} onMouseLeave={e => props.handleVisibilityChange(e, "hidden")} style={{"visibility": props.state.profile_tab_visibility}}>
+        <div
+          class="section1"
+          onMouseEnter={(e) => props.handleVisibilityChange(e, "visible")}
+          onMouseLeave={(e) => props.handleVisibilityChange(e, "hidden")}
+          style={{ visibility: props.state.profile_tab_visibility }}
+        >
           <div class="section2">
             <div>
-              <button class="signup" onClick={(e) => props.handleButton1(e)}>{button1Name}</button>
+              <button class="signup" onClick={(e) => props.handleButton1(e)}>
+                Sign up
+              </button>
             </div>
 
             <div>
-              <button class="login" onClick={(e) => props.handleButton2(e)}>{button2Name}</button>
+              <button class="login" onClick={(e) => props.handleButton2(e)}>
+                Login
+              </button>
             </div>
           </div>
         </div>
 
         <div class="bodyContainer">
           <div class="results2">
-            {props.state.trains.map((train) => (
-              <div class="resultCell">
-              <p class="trainName">Train {train.train_id}</p>
-              <div class="trainInfo">
-                <p class="dep-arr">{train.departure_city} - {train.arrival_city}</p>
-                <p class="capacity">{train.capacity} Seats</p>
-                <p class="date">{train.trip_date.substring(0, 10)}</p>
-                <button class="buy">Buy</button>
-              </div>
-            </div>
-            ))}
+            {props.state.searchedTrains.map(
+              (train) => (
+                console.log("idsss", train.id),
+                (
+                  <div class="resultCell">
+                    <p class="trainName">Train {train.id}</p>
+                    <div class="trainInfo">
+                      <p class="dep-arr">
+                        {train.departure_city} - {train.arrival_city}
+                      </p>
+                      <p class="capacity">{train.capacity} Seats</p>
+                      <p class="date">{train.trip_date.substring(0, 10)}</p>
+                      <button class="buy">Buy</button>
+                    </div>
+                  </div>
+                )
+              )
+            )}
           </div>
         </div>
       </div>
