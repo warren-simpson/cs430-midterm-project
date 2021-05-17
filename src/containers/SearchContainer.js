@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { SearchView } from "../views";
-import { setUser, getUser } from "../containers/user"
+import { setUser, getUser } from "../containers/user";
+import { db } from "../firebase/firebase";
 
 class SearchContainer extends Component {
   constructor(props) {
@@ -8,24 +9,36 @@ class SearchContainer extends Component {
     this.state = {
       departure: "",
       arrival: "",
-      trains: [{"train_id": "1", "departure_city": "New York", "arrival_city": "Boston", "capacity": "22", "trip_date": "2532-32-44"}],
-      profile_tab_visibility: "hidden",
+      trains: [],
+      searchedTrains: [],
     };
   }
 
-  getResponse = async (departure, arrival) => {
-    const response = await fetch(`/api/trains/${departure}/${arrival}`);
-    const body = await response.json();
-    this.setState({ trains: body });
-    if (response.status !== 200) throw Error(body.message);
-    return body;
+  async componentDidMount() {
+    const response = db.collection("trains");
+    const data = await response.get();
+    data.docs.forEach((item) => {
+      // console.log("is this gonna work", item.data());
+      this.setState({ trains: [...this.state.trains, item.data()] });
+    });
+  }
+
+  getResponse = (departure, arrival) => {
+    let searched = this.state.trains.filter(
+      (train) =>
+        train.departure_city === departure && train.arrival_city === arrival
+    );
+
+    this.setState({
+      searchedTrains: searched,
+    });
   };
 
   handleVisibilityChange = (e, visibility) => {
     this.setState({
       profile_tab_visibility: visibility,
     });
-  }
+  };
 
   handleInputChange = (e) => {
     //e.preventdefault();
@@ -36,22 +49,17 @@ class SearchContainer extends Component {
 
   handleSearch = (e) => {
     //e.preventdefault();
-    this.getResponse(this.state.departure, this.state.arrival).then((res) => {
-      const someData = res;
-      this.setState({
-        trains: someData,
-      });
-    });
+    this.getResponse(this.state.departure, this.state.arrival);
+    console.log(this.state.searchedTrains);
   };
 
   handleButton1 = (e) => {
     //e.preventdefault();
     const user = getUser();
 
-    if(user === "") {
+    if (user === "") {
       window.open("/signup", "_self");
-    }
-    else {
+    } else {
       window.open("/purchases", "_self");
     }
   };
@@ -61,10 +69,9 @@ class SearchContainer extends Component {
 
     const user = getUser();
 
-    if(user === "") {
+    if (user === "") {
       window.open("/login", "_self");
-    }
-    else {
+    } else {
       setUser("");
       window.open("/", "_self");
     }
@@ -72,7 +79,6 @@ class SearchContainer extends Component {
 
   handleBuy = (e, train_id) => {
     e.preventdefault();
-    
   };
 
   render() {
