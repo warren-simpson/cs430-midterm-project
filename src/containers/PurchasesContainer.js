@@ -1,16 +1,24 @@
 import React, { Component } from "react";
 import { PurchasesView } from "../views";
+import { db } from "../firebase/firebase";
+import { setUser, getUser } from "../containers/user";
 
 class PurchasesContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        purchases: [{"train_id": "1", "departure_city": "New York", "arrival_city": "Boston", "capacity": "22", "trip_date": "2532-32-44"}],
+      purchases: [],
+      userPurchases: [],
     };
   }
 
-  componentDidMount() {
-      
+  async componentDidMount() {
+    const response = db.collection("purchases");
+    const data = await response.get();
+    data.docs.forEach((item) => {
+      // console.log("is this gonna work", item.data());
+      this.setState({ purchases: [...this.state.purchases, item.data()] });
+    });
   }
 
   handleInputChange = (e) => {
@@ -20,9 +28,7 @@ class PurchasesContainer extends Component {
     });
   };
 
-  handleCancel = (e, train_id) => {
-
-  }
+  handleCancel = (e, train_id) => {};
 
   render() {
     return (
