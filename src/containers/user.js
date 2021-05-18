@@ -1,9 +1,9 @@
-var user = ""
+let user = "testing@gmail.com";
 
 export function setUser(newUser) {
-    user = newUser;
+  user = newUser;
 }
 
 export function getUser() {
-    return user;
+  return user;
 }

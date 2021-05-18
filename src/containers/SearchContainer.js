@@ -23,8 +23,6 @@ class SearchContainer extends Component {
     });
   }
 
-  buyTicket = () => {};
-
   getSearchedTrains = (departure, arrival) => {
     let searched = this.state.trains.filter(
       (train) =>
@@ -84,6 +82,7 @@ class SearchContainer extends Component {
     let bought = this.state.trains.find((train) => train.id === id);
     console.log(bought);
     const data = {
+      email: getUser(),
       departure_city: bought.departure_city,
       arrival_city: bought.arrival_city,
       capacity: bought.capacity,
