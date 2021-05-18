@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { LoginView } from "../views";
-import { setUser, getUser } from "../containers/user";
 import { auth } from "../firebase/firebase";
 
 class LoginContainer extends Component {
@@ -16,10 +15,10 @@ class LoginContainer extends Component {
     auth
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then((auth) => {
-        //history.push("/");
-
-        setUser(this.state.email);
-        console.log("current user is: ", getUser());
+        if (auth) {
+          sessionStorage.setItem('email', this.state.email);
+          window.open("/", "_self");
+        }
       })
       .catch((error) => alert(error.message));
   };

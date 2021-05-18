@@ -1,13 +1,13 @@
 import React from "react";
 import "./styles/SearchView.css";
-import { getUser } from "../containers/user";
 
 const SearchView = (props) => {
   var button1Name = "SignUp";
   var button2Name = "Login";
-  var user = getUser();
+  var user = sessionStorage.getItem('email');
 
-  if (user !== "") {
+  if (user !== null) {
+    console.log(user);
     button1Name = "Purchases";
     button2Name = "Logout";
   }
@@ -60,13 +60,13 @@ const SearchView = (props) => {
           <div class="section2">
             <div>
               <button class="signup" onClick={(e) => props.handleButton1(e)}>
-                Sign up
+                {button1Name}
               </button>
             </div>
 
             <div>
               <button class="login" onClick={(e) => props.handleButton2(e)}>
-                Login
+                {button2Name}
               </button>
             </div>
           </div>

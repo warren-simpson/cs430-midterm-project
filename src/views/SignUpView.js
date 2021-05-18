@@ -40,6 +40,7 @@ const SignUpView = (props) => {
             <label>Password</label>
             <input
               class="l1"
+              type="password"
               value={props.state.password}
               name="password"
               onChange={(e) => props.handleInputChange(e)}

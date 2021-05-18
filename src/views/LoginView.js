@@ -15,7 +15,7 @@ const LoginView = (props) => {
 
           <div class="cell1">
             <label>Password</label>
-            <input class="l1" value={props.state.password} name="password" onChange={(e) => props.handleInputChange(e)}></input>
+            <input class="l1" type="password" value={props.state.password} name="password" onChange={(e) => props.handleInputChange(e)}></input>
           </div>
 
           <button class="loginButton" onClick={(e) => props.handleLogin(e)}>

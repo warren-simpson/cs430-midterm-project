@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { SignUpView } from "../views";
-import { setUser } from "../containers/user";
+//import { setUser } from "../containers/user";
 
 import { db, auth } from "../firebase/firebase";
 
@@ -45,6 +45,8 @@ class SignUpContainer extends Component {
         // it successfully created a new user with email and password
         if (auth) {
           console.log("rounding11");
+          sessionStorage.setItem('email', this.state.email);
+          window.open("/", "_self");
         }
       })
       .catch((error) => alert(error.message));

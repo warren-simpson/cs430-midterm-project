@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { SearchView } from "../views";
-import { setUser, getUser } from "../containers/user";
 import { db } from "../firebase/firebase";
 
 class SearchContainer extends Component {
@@ -9,6 +8,7 @@ class SearchContainer extends Component {
     this.state = {
       departure: "",
       arrival: "",
+      profile_tab_visibility: "hidden",
       trains: [],
       searchedTrains: [],
     };
@@ -55,9 +55,9 @@ class SearchContainer extends Component {
 
   handleButton1 = (e) => {
     //e.preventdefault();
-    const user = getUser();
+    const user = sessionStorage.getItem('email');
 
-    if (user === "") {
+    if (user === null) {
       window.open("/signup", "_self");
     } else {
       window.open("/purchases", "_self");
@@ -66,13 +66,12 @@ class SearchContainer extends Component {
 
   handleButton2 = (e) => {
     //e.preventdefault();
+    const user = sessionStorage.getItem('email');
 
-    const user = getUser();
-
-    if (user === "") {
+    if (user === null) {
       window.open("/login", "_self");
     } else {
-      setUser("");
+      sessionStorage.setItem('email', null);
       window.open("/", "_self");
     }
   };
@@ -82,7 +81,7 @@ class SearchContainer extends Component {
     let bought = this.state.trains.find((train) => train.id === id);
     console.log(bought);
     const data = {
-      email: getUser(),
+      email: sessionStorage.getItem('email'),
       departure_city: bought.departure_city,
       arrival_city: bought.arrival_city,
       capacity: bought.capacity,

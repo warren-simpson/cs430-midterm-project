@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { PurchasesView } from "../views";
 import { db } from "../firebase/firebase";
-import { setUser, getUser } from "../containers/user";
 
 class PurchasesContainer extends Component {
   constructor(props) {
@@ -28,7 +27,10 @@ class PurchasesContainer extends Component {
     });
   };
 
-  handleCancel = (e, train_id) => {};
+  handleCancel = (e, train_id) => {
+    
+    window.open("/", "_self");
+  };
 
   render() {
     return (
