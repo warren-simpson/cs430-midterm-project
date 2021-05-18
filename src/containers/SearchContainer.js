@@ -57,10 +57,10 @@ class SearchContainer extends Component {
     //e.preventdefault();
     const user = sessionStorage.getItem('email');
 
-    if (user === null) {
-      window.open("/signup", "_self");
-    } else {
+    if (user !== "null" && user !== null) {
       window.open("/purchases", "_self");
+    } else {
+      window.open("/signup", "_self");
     }
   };
 
@@ -68,11 +68,11 @@ class SearchContainer extends Component {
     //e.preventdefault();
     const user = sessionStorage.getItem('email');
 
-    if (user === null) {
-      window.open("/login", "_self");
-    } else {
+    if (user !== "null" && user !== null) {
       sessionStorage.setItem('email', null);
       window.open("/", "_self");
+    } else {
+      window.open("/login", "_self");
     }
   };
 

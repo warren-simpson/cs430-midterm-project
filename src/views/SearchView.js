@@ -6,8 +6,7 @@ const SearchView = (props) => {
   var button2Name = "Login";
   var user = sessionStorage.getItem('email');
 
-  if (user !== null) {
-    console.log(user);
+  if (user !== "null" && user !== null) {
     button1Name = "Purchases";
     button2Name = "Logout";
   }
