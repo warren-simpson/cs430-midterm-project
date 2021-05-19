@@ -30,7 +30,7 @@ class PurchasesContainer extends Component {
   handleCancel = async (e, id) => {
     let docId = id + " " + sessionStorage.getItem("email");
     const res = await db.collection("purchases").doc(`${docId}`).delete();
-    window.open("/", "_self");
+    window.open("/purchases", "_self");
   };
 
   render() {
