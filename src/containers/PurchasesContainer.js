@@ -27,9 +27,10 @@ class PurchasesContainer extends Component {
     });
   };
 
-  handleCancel = (e, train_id) => {
-    
-    window.open("/", "_self");
+  handleCancel = async (e, id) => {
+    let docId = id + " " + sessionStorage.getItem("email");
+    const res = await db.collection("purchases").doc(`${docId}`).delete();
+    // window.open("/", "_self");
   };
 
   render() {

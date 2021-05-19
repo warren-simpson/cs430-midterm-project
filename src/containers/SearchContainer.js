@@ -55,7 +55,7 @@ class SearchContainer extends Component {
 
   handleButton1 = (e) => {
     //e.preventdefault();
-    const user = sessionStorage.getItem('email');
+    const user = sessionStorage.getItem("email");
 
     if (user !== "null" && user !== null) {
       window.open("/purchases", "_self");
@@ -66,10 +66,10 @@ class SearchContainer extends Component {
 
   handleButton2 = (e) => {
     //e.preventdefault();
-    const user = sessionStorage.getItem('email');
+    const user = sessionStorage.getItem("email");
 
     if (user !== "null" && user !== null) {
-      sessionStorage.setItem('email', null);
+      sessionStorage.setItem("email", null);
       window.open("/", "_self");
     } else {
       window.open("/login", "_self");
@@ -81,15 +81,17 @@ class SearchContainer extends Component {
     let bought = this.state.trains.find((train) => train.id === id);
     console.log(bought);
     const data = {
-      email: sessionStorage.getItem('email'),
+      email: sessionStorage.getItem("email"),
       departure_city: bought.departure_city,
       arrival_city: bought.arrival_city,
       capacity: bought.capacity,
       trip_date: bought.trip_date,
       id: id,
+      docId: id + " " + sessionStorage.getItem("email"),
     };
+
     db.collection("purchases")
-      .doc(data.id.toString())
+      .doc(data.docId.toString())
       .set(data)
       .then(() => {
         console.log("A new purchase is made", "Success");
